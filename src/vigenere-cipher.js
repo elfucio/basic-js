@@ -6,19 +6,19 @@ class VigenereCipheringMachine {
     encrypt(message, key) {
         if (!message || !key) throw new Error();
         let result = '';
-        let encryptedStr = message.toUpperCase();
+        let messageStr = message.toUpperCase();
         let keywordStr = key.toUpperCase();
         let char = 0;
 
-        for (let i = 0; i < encryptedStr.length; i++) {
-            if (encryptedStr.charCodeAt(i) > 64 && encryptedStr.charCodeAt(i) < 91) {   
+        for (let i = 0; i < messageStr.length; i++) {
+            if (messageStr.charCodeAt(i) > 64 && messageStr.charCodeAt(i) < 91) {   
                 if (char >= keywordStr.length) {
                     char = 0;
-                    result += String.fromCharCode(((encryptedStr.charCodeAt(i) + keywordStr.charCodeAt(char++)) % 26) + 65);  
-                }            
+                }                    
+                    result += String.fromCharCode(((messageStr.charCodeAt(i) + keywordStr.charCodeAt(char++)) % 26) + 65);  
             }
             else {
-                result += encryptedStr[i];
+                result += messageStr[i];
             } 
 
             if (this.modification === false) {
@@ -39,8 +39,8 @@ class VigenereCipheringMachine {
             if (encryptedStr.charCodeAt(i) > 64 && encryptedStr.charCodeAt(i) < 91) {   
                 if (char >= keywordStr.length) {
                     char = 0;
-                    result += String.fromCharCode(((encryptedStr.charCodeAt(i) + 26 - keywordStr.charCodeAt(char++)) % 26) + 65);  
-                }            
+                }
+                result += String.fromCharCode(((encryptedStr.charCodeAt(i) + 26 - keywordStr.charCodeAt(char++)) % 26) + 65);                       
             }
             else {
                 result += encryptedStr[i];
@@ -50,7 +50,6 @@ class VigenereCipheringMachine {
         if (this.modification === false) {
             return result.split('').reverse().join('');
         }
-
         return result;
     }
 }
